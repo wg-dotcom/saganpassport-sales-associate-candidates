@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDR Candidates — Sagan Passport</title>
+  <link rel="icon" type="image/png" href="https://framerusercontent.com/images/S1c1B9DfvYAUAWhvNHvghzfQBjQ.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+        :root {
+      --primary: #093a3e;
+      --primary-dark: #06282b;
+      --primary-deeper: #044449;
+      --dark: #0e1014;
+      --highlight: #1a1410;
+      --bg-light: #f0eee5;
+      --bg-subtle: #e5e2d3;
+      --bg-page: #f3f2ec;
+      --bg-card: #fafaf7;
+      --bg-card-hover: #f0eee5;
+      --white: #ffffff;
+      --text-primary: #0e1014;
+      --text-mid: #3a3a3a;
+      --text-light: #6b6b6b;
+      --text-muted: #999999;
+      --on-dark: #f3f2ec;
+      --on-dark-mid: rgba(243,242,236,0.9);
+      --on-dark-light: rgba(243,242,236,0.7);
+      --on-dark-muted: rgba(243,242,236,0.5);
+      --border: rgba(14,16,20,0.12);
+      --border-strong: rgba(14,16,20,0.2);
+      --tag-bg: rgba(9,58,62,0.1);
+      --tag-color: #044449;
+      --shadow-sm: 0 1px 2px rgba(14,16,20,0.06);
+      --shadow-md: 0 4px 16px rgba(14,16,20,0.08);
+      --radius: 14px;
+      --font-heading: 'Inter', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-display: 'Fraunces', Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; color: var(--text-dark); background: var(--bg-page); line-height: 1.6; }
+
+    .site-header { background: var(--bg-card); padding: 0 32px; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); border-bottom: 1px solid var(--border); }
+    .header-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .header-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--text-primary); }
+    .header-brand img { height: 32px; width: auto; }
+    .header-divider { width: 1px; height: 28px; background: var(--border); }
+    .header-title { font-family: var(--font-heading); font-weight: 600; font-size: 14px; color: var(--text-primary); opacity: 0.7; letter-spacing: 0.03em; }
+    .header-sagan { display: flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-size: 12px; font-weight: 600; color: var(--text-mid); letter-spacing: 0.03em; text-transform: uppercase; }
+
+    .hero { background: linear-gradient(145deg, var(--dark) 0%, var(--primary-deeper) 40%, var(--primary) 100%); color: var(--white); padding: 72px 32px 64px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, #1a14101a 0%, transparent 70%); border-radius: 50%; }
+    .hero-eyebrow { display: inline-block; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.28); border-radius: 100px; padding: 6px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 22px; color: rgba(255,255,255,0.95); }
+    .hero h1 { font-family: var(--font-display), serif; font-size: clamp(34px, 5.5vw, 56px); font-weight: 500; line-height: 1.08; max-width: 760px; margin: 0 auto 16px; letter-spacing: -0.025em; }
+    .hero-sub { font-size: 18px; color: var(--on-dark-mid); max-width: 620px; margin: 0 auto 36px; font-weight: 400; line-height: 1.6; }
+    .hero-meta { display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .hero-meta-item { display: flex; align-items: center; gap: 8px; color: var(--on-dark-mid); font-size: 13px; font-weight: 500; }
+    .hero-meta-item svg { width: 16px; height: 16px; }
+    .hero-meta-item strong { color: white; }
+
+    .intro-note { max-width: 900px; margin: -32px auto 0; padding: 0 24px; position: relative; z-index: 10; }
+    .intro-card { background: var(--bg-card); border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow-md); border-left: 4px solid var(--primary); font-size: 15px; color: var(--text-mid); line-height: 1.7; }
+    .intro-card p { margin-bottom: 10px; }
+    .intro-card p:last-child { margin-bottom: 0; }
+
+    .batch-info { text-align: center; margin: 32px 0 8px; }
+    .batch-pill { display: inline-flex; align-items: center; gap: 10px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; padding: 8px 20px; font-size: 13px; color: var(--text-light); }
+    .batch-num { font-weight: 700; color: var(--primary); }
+
+    .batch-switcher { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 8px auto 36px; max-width: 800px; padding: 0 24px; }
+    .batch-switcher[data-count="1"] { display: none; }
+    .batch-btn { display: flex; align-items: center; gap: 8px; padding: 11px 22px; border: 2px solid var(--border); border-radius: 10px; background: var(--bg-card); font-family: var(--font-body); font-size: 14px; font-weight: 600; color: var(--text-light); cursor: pointer; transition: all 0.2s ease; }
+    .batch-btn:hover { border-color: var(--primary); color: var(--text-primary); }
+    .batch-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .batch-count { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: white; font-size: 11px; font-weight: 700; }
+    .batch-btn.active .batch-count { background: var(--highlight); color: var(--dark); }
+    .batch-panel.hidden { display: none; }
+
+    .section-label { text-align: center; padding: 24px 24px 28px; }
+    .section-label h2 { font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .section-label p { font-size: 15px; color: var(--text-light); }
+
+    .candidates { max-width: 900px; margin: 0 auto; padding: 0 24px 40px; display: flex; flex-direction: column; gap: 24px; }
+
+    .candidate-card { max-width: 1100px; margin: 0 auto 40px; padding: 0 40px; }
+    .card { background: var(--bg-card); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-md); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(14,16,20,0.1); border-color: rgba(9,58,62,0.15); }
+    .card.featured { border-color: rgba(9,58,62,0.28); box-shadow: 0 4px 32px rgba(9,58,62,0.08); }
+    .card-top { background: var(--dark); padding: 36px 44px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border); }
+    .card-identity { display: flex; align-items: center; gap: 20px; }
+    .card-avatar { width: 60px; height: 60px; border-radius: 50%; background: rgba(9,58,62,0.1); border: 2px solid rgba(9,58,62,0.22); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--primary); flex-shrink: 0; font-family: var(--font-heading); }
+    .card-avatar.featured-avatar { background: var(--primary); border-color: var(--primary); color: var(--dark); }
+    .card-name { font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--on-dark); margin-bottom: 4px; }
+    .card-location { font-size: 14px; color: var(--on-dark-mid); display: flex; align-items: center; gap: 6px; }
+    .card-badges { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+    .badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+    .badge-shortlisted { background: rgba(9,58,62,0.15); color: var(--primary); border: 1px solid rgba(9,58,62,0.32); }
+    .card-rate { text-align: right; }
+    .card-rate-amount { font-size: 24px; font-weight: 700; color: var(--primary); font-family: var(--font-heading); }
+    .card-rate-period { font-size: 11px; color: var(--on-dark-mid); text-transform: uppercase; letter-spacing: 1px; }
+    .tap-badge { display: inline-flex; align-items: center; gap: 5px; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; }
+
+    .tags-row { padding: 0 44px 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { display: inline-block; padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+    .tag-filled { background: var(--tag-bg); color: var(--tag-color); }
+    .tag-filled:nth-child(3) { background: var(--highlight); color: var(--dark); }
+    .tag-outlined { background: var(--bg-subtle); color: var(--text-mid); border: 1.5px solid var(--border-strong); }
+
+    .card-body { padding: 40px 44px; color: var(--text-mid); }
+    .card-section { margin-bottom: 0; }
+    .card-section-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--primary); margin-bottom: 16px; margin-top: 32px; font-family: var(--font-heading); }
+    .card-section-title:first-of-type { margin-top: 0; }
+    .card-narrative { font-size: 16px; line-height: 1.85; color: var(--text-mid); margin-bottom: 32px; font-style: italic; border-left: 3px solid var(--primary); padding-left: 20px; }
+    .card-narrative strong { color: var(--text-primary); font-weight: 600; font-style: normal; }
+    .experience-list { display: flex; flex-direction: column; gap: 14px; }
+    .experience-list { display: flex; flex-direction: column; gap: 20px; }
+    .exp-item { display: flex; gap: 16px; align-items: flex-start; }
+    .exp-dot-col { display: flex; flex-direction: column; align-items: center; padding-top: 6px; }
+    .exp-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+    .exp-line { width: 1px; flex: 1; background: rgba(9,58,62,0.15); margin-top: 6px; min-height: 30px; }
+    .exp-content { flex: 1; padding-bottom: 4px; }
+    .exp-role { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+    .exp-company { font-size: 13px; color: var(--text-light); margin-top: 2px; }
+    .exp-highlight { font-size: 13px; color: var(--primary); margin-top: 4px; }
+    .tags-cluster { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ctag { font-size: 12px; padding: 6px 14px; border-radius: 6px; background: var(--bg-subtle); color: var(--text-mid); }
+    .ctag-key { background: rgba(9,58,62,0.08); color: var(--primary); font-weight: 600; }
+    .fit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .fit-item { background: var(--bg-subtle); padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border-strong); overflow: visible; word-wrap: break-word; }
+    .fit-label { font-size: 12px; color: var(--text-mid); line-height: 1.5; display: block; overflow: visible; white-space: normal; }
+    .strength-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; }
+    .bar-item { display: flex; flex-direction: column; gap: 6px; }
+    .bar-label { font-size: 13px; color: var(--text-mid); }
+    .bar-track { height: 5px; background: var(--bg-subtle); border-radius: 3px; overflow: hidden; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--highlight)); border-radius: 3px; transition: width 1.5s ease; }
+    .card-actions { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 14px; }
+    .video-intro-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; background: transparent; border: 1.5px solid var(--primary); border-radius: 6px; color: var(--primary); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; text-decoration: none; transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease; }
+    .video-intro-btn:hover { background: var(--primary); color: #fff; transform: translateY(-1px); }
+
+    .experience-item { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .exp-dates { font-size: 12px; color: var(--text-light); white-space: nowrap; }
+
+    .strength-list { padding-left: 18px; }
+    .strength-list li { font-size: 14px; color: var(--text-mid); margin-bottom: 8px; line-height: 1.6; }
+
+    .card-footer { display: flex; align-items: center; justify-content: space-between; padding: 16px 44px; background: var(--bg-subtle); border-top: 1px solid var(--border); }
+    .footer-note { font-size: 13px; color: var(--text-light); }
+    .footer-note strong { color: var(--text-primary); }
+    .btn-group { display: flex; gap: 8px; }
+    .btn-card { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 8px; font-family: var(--font-heading); font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.15s; cursor: pointer; }
+    .btn-outline { background: var(--bg-card); color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--tag-bg); }
+    .btn-primary-card { background: var(--primary); color: white; border: 1.5px solid var(--primary); }
+    .btn-primary-card:hover { background: var(--primary-dark); }
+    .btn-card svg { width: 15px; height: 15px; }
+    .btn-tap { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; }
+
+    .card-recruiter-note { margin: 0; padding: 16px 20px; }
+    .card-recruiter-note .recruiter-note-title { font-family: var(--font-heading); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); margin-bottom: 8px; }
+    .card-recruiter-note p { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+
+    .comparison-section { max-width: 1100px; margin: 20px auto 40px; padding: 0 40px; }
+    .comparison-table-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .comparison-table { width: 100%; border-collapse: collapse; background: var(--bg-card); font-size: 13px; color: var(--text-mid); border-radius: 12px; overflow: hidden; }
+    .comparison-table thead th { background: var(--dark); color: var(--primary); padding: 14px 16px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .comparison-table thead th:first-child { border-radius: 14px 0 0 0; }
+    .comparison-table thead th:last-child { border-radius: 0 14px 0 0; }
+    .comparison-table tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .comparison-table tbody tr:last-child td { border-bottom: none; }
+    .comparison-table tbody tr:hover { background: var(--bg-card-hover); }
+    .comparison-table .highlight-cell { background: rgba(9,58,62,0.08); font-weight: 600; color: var(--primary); }
+
+    .advisor-section { max-width: 1100px; margin: 0 auto 40px; padding: 0 40px; }
+    .advisor-card { display: flex; gap: 24px; background: var(--bg-card); border-radius: 16px; padding: 28px; box-shadow: var(--shadow-md); border: 1px solid var(--border); }
+    .advisor-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); flex-shrink: 0; }
+    .advisor-info { flex: 1; }
+    .advisor-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary); margin-bottom: 4px; }
+    .advisor-name { font-family: var(--font-heading); font-size: 20px; font-weight: 800; color: var(--text-primary); }
+    .advisor-role { font-size: 13px; color: var(--text-light); margin-bottom: 10px; }
+    .advisor-summary { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+
+    .site-footer { text-align: center; padding: 32px; color: var(--on-dark-light); font-size: 13px; border-top: 1px solid var(--on-dark-muted); background: var(--dark); }
+    .footer-logos { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 12px; }
+    .footer-logos img { height: 24px; opacity: 0.6; }
+    .footer-x { font-size: 18px; color: var(--border); }
+    .site-footer a { color: var(--primary); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .hero { padding: 48px 20px 40px; }
+      .card-top { flex-direction: column; padding: 24px; gap: 16px; }
+      .card-body { padding: 24px; }
+      .candidate-card { padding: 0 16px; }
+      .fit-grid { grid-template-columns: 1fr; }
+      .strength-bars { grid-template-columns: 1fr; }
+      .advisor-card { flex-direction: column; text-align: center; }
+      .comparison-table { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="site-header">
+    <div class="header-inner">
+      <a class="header-brand" href="https://saganpassport.com/" target="_blank">
+        <img src="https://framerusercontent.com/images/S1c1B9DfvYAUAWhvNHvghzfQBjQ.png" alt="Sagan Passport" style="height:26px;" />
+        <div class="header-divider"></div>
+        <span class="header-title">Sagan Passport</span>
+      </a>
+      <div class="header-sagan">
+        <span>Powered by</span>
+        <img src="https://saganrecruitment.com/wp-content/uploads/2025/10/Sagan-Logo-2-e1759568299542.png" alt="Sagan" style="height:20px;" />
+      </div>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-eyebrow">White Glove Talent Search</div>
+    <h1>SDR Candidates</h1>
+    <p class="hero-sub">Four profiles evaluated for B2B outbound work into US enterprise brand and SaaS decision-makers. Each vetted for written outreach quality, CRM stack fluency, and comfort with multi-touch sales cycles.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <strong>4</strong> Candidates
+      </div>
+      <div class="hero-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <strong>Batch 1</strong> &middot; April 15, 2026
+      </div>
+      <div class="hero-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Advisor: <strong>Jesus Pacheco</strong>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <div class="batch-info">
+    <div class="batch-pill">
+      <span class="batch-num">Batch 1</span>
+      April 15, 2026
+    </div>
+  </div>
+
+  <div class="section-label">
+    <h2>Candidate Profiles</h2>
+    <p>Each candidate has been carefully selected and evaluated for this role.</p>
+  </div>
+
+  <div class="batch-switcher" id="batch-switcher" data-count="1">
+    <button class="batch-btn active" onclick="showBatch(1)" data-batch="1">
+      <span>Batch 1</span>
+      <span class="batch-count">4</span>
+    </button>
+  </div>
+
+  <div id="batch-1" class="batch-panel">
+    <div class="candidates">
+      
+    <div class="candidate-card">
+      <div class="card featured" id="candidate-0">
+        <div class="card-top">
+          <div class="card-identity">
+            <div class="card-avatar featured-avatar">L</div>
+            <div>
+              <div class="card-name">Luis</div>
+              <div class="card-location">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Mexico &middot; 8 yrs Sales Development
+              </div>
+              <div class="card-badges">
+                
+                <span class="badge badge-shortlisted">Pre-Shortlisted</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-rate">
+            <div class="card-rate-amount">$2,200/mo</div>
+            <div class="card-rate-period">USD / Month</div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          
+          <div class="card-narrative">
+            Luis is the tenured BDR in this batch. Eight years across rental/travel (Avis / Budget), field-service SaaS (HouseCallPro at Onestar Solutions), a B2B SaaS agency (Michelada.io), and a SAP intern run at Honeywell. He's worked the exact HubSpot / Salesforce / LinkedIn Sales Navigator / cold-call stack this role would run. Bilingual Spanish / English, which expands reach if the prospect pool ever extends into LATAM-headquartered US brands.
+          </div>
+
+          
+          <div class="card-section-title">Experience Highlights</div>
+          <div class="experience-list">
+            
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Sales Development Representive</div>
+                <div class="exp-company">Telvista(Avis and Budget Group) &middot; Feb 2016 – Jun 2017</div>
+                <div class="exp-highlight">Provided exceptional customer service while up selling rental options, insurance, and upgrades to meet client needs and increase revenue. Handled reservations, resolved customer issues, and maintained strong product knowledge in a fast-paced environment.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Sales Development Representive</div>
+                <div class="exp-company">Onestar Solutions (HouseCallPro) &middot; Jun 2017 – Dec 2020</div>
+                <div class="exp-highlight">Proactively identifying and qualifying leads through various channels, including phone and email.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">SAP Materials Management Analyst. INTERN TRAINEE.</div>
+                <div class="exp-company">Honeywell - Garrett advanced motion &middot; Dec 2018 – May 2019</div>
+                <div class="exp-highlight">My job was to update material parameters in SAP, with very specific information for each part number as MOQ, lead time &amp; transit times (Planning time fence) also modify the coverage profiles, and some master data regarding units of measure, all of this changes and updates where to get us to send more accurate requirements to suppliers, reducing the time used to update requirements every week and reduce the orders moved out at the end of the month that allowed us to send delivery schedules to some suppliers that were handled manually.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Business Development Representative</div>
+                <div class="exp-company">Michelada.io &middot; Mar 2021 – Apr 2022</div>
+                <div class="exp-highlight">Identify and qualify new business opportunities using inbound and outbound channels such as email, Linked In, phone, and networking.</div>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="card-section-title">Platforms &amp; Tools</div>
+          <div class="tags-cluster">
+            <span class="ctag ctag-key">HubSpot</span><span class="ctag ctag-key">Salesforce</span><span class="ctag ctag-key">LinkedIn Sales Navigator</span><span class="ctag ctag-key">Cold Calling</span><span class="ctag ctag-key">Lead Generation</span>
+            <span class="ctag">Bilingual</span>
+          </div>
+
+          
+          <div class="card-section-title">Fit Indicators</div>
+          <div class="fit-grid">
+            
+            <div class="fit-item">
+              <div class="fit-label">8 years of B2B BDR → Built for multi-touch sales cycles, the pace B2B services work is sold at.</div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-label">SaaS + agency stack fluency → HouseCallPro (field-service SaaS) and Michelada.io (B2B services agency) are both directly adjacent to this type of SDR motion.</div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-label">Bilingual Spanish / English → Expands reach if the ICP ever extends to LATAM-founded or LATAM-operated US brands.</div>
+            </div>
+          </div>
+
+          
+          <div class="card-section-title">Strength Profile</div>
+          <div class="strength-bars">
+            
+            <div class="bar-item">
+              <div class="bar-label">Cold Calling</div>
+              <div class="bar-track"><div class="bar-fill" style="width:90%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Lead Generation</div>
+              <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">CRM Management</div>
+              <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Pipeline Building</div>
+              <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Agency / Services Selling</div>
+              <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Bilingual Outreach (EN / ES)</div>
+              <div class="bar-track"><div class="bar-fill" style="width:90%"></div></div>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a class="video-intro-btn" href="https://drive.google.com/file/d/1m3-jqt3cvanApGLka8r0vEm6lrFghiqj/view" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Intro Video</a>
+            
+          </div>
+        </div>
+
+        
+        <div class="card-footer">
+          <div class="card-recruiter-note">
+            <div class="recruiter-note-title">Recruiter Note</div>
+            <p>Luis brings something rare: sustained BDR performance across eight straight years of B2B pipeline work. He's not jumping around looking for title inflation — he's mastered the craft of qualifying and warming leads. His HouseCallPro and Michelada.io runs are both adjacent to this type of SDR motion: one is field-service SaaS, the other is a B2B services agency. He has already run HubSpot, Salesforce, and LinkedIn Sales Navigator on live pipelines. At $2,200/mo you're getting a seasoned pipeline builder at roughly a fifth of US BDR cost. The honest read: he's a BDR, not a closer. If the SDR scope is qualifying and warming inbound and outbound pipeline before a senior partner takes the sales conversation, he's the most-steady hire in the batch. If this search wants someone who can also navigate a C-level discovery call solo, Chad is the stronger fit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="candidate-card">
+      <div class="card" id="candidate-1">
+        <div class="card-top">
+          <div class="card-identity">
+            <div class="card-avatar">C</div>
+            <div>
+              <div class="card-name">Chad</div>
+              <div class="card-location">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                South Africa &middot; 
+              </div>
+              <div class="card-badges">
+                
+                
+              </div>
+            </div>
+          </div>
+          <div class="card-rate">
+            <div class="card-rate-amount">$2,600/mo</div>
+            <div class="card-rate-period">USD / Month</div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          
+          <div class="card-narrative">
+            Chad is the one in this batch whose resume already reads like this SDR profile. Running B2B SaaS outbound at Kickfin right now, 40%+ meeting-to-close. Before that, a remote closer at a US digital marketing agency where he drove an 86% sales lift in three months, then on Airbnb's 25-person global launch team at a 56% BDR conversion rate. He already knows how to run Salesforce, Apollo, Clay, LinkedIn, and a cold-email cadence into US B2B accounts. South African English lands clean for CMO-level outreach.
+          </div>
+
+          <div class="card-section-title">Experience Highlights</div>
+          <div class="experience-list">
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Senior SDR / Account Manager</div>
+                <div class="exp-company">Kickfin (SaaS) &middot; 2026 – Present</div>
+                <div class="exp-highlight">40%+ conversion rate from meetings booked to deals closed, 5-7 meetings per week. Builds sales cycles, outreach sequences, and prospecting scripts using Apollo.io and Clay. Leads team training.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Business Development Specialist</div>
+                <div class="exp-company">Airbnb (Direct B2B) &middot; 2025 · 6-month contract</div>
+                <div class="exp-highlight">Handpicked for a 25-person global launch team. 56% conversion rate in BDR booking activities at 150 daily calls. Stack: Salesforce, Cloudtalk, Asana, Zoom, Mixmax, Slack, Trellus.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Remote Sales Closer / Account Executive</div>
+                <div class="exp-company">LDC Digital Marketing (US-based agency) &middot; 2022 – Jul 2024</div>
+                <div class="exp-highlight">Remote role out of Miami, FL. Designed and implemented strategy that boosted digital marketing sales by 86% in the first three months. Directed a 4-person sales team. The most directly role-adjacent experience on his resume — selling agency services into US buyers.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Financial Advisor</div>
+                <div class="exp-company">Liberty (Financial Sales, JHB) &middot; 2022 – 2024</div>
+                <div class="exp-highlight">Top-performing sales writer in 2023 within the agency group's branch, recognized in his first year. Produced 5.6M PCRs in 2023. Trained new advisors in cold calling, negotiation, and upskilling.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-section-title">Fit Indicators</div>
+          <div class="fit-grid">
+            <div class="fit-item">
+              <div class="fit-label">SaaS outbound fluency → Running a 40%+ close rate at Kickfin right now. Not learning outbound, executing it.</div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-label">Agency-service selling experience → Closed for US-based digital marketing and media firms. Knows how senior brand buyers evaluate a services pitch.</div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-label">Cold-email &amp; CRM stack ready → Salesforce, Apollo, Clay, Mixmax, LinkedIn Sales Navigator all in daily use. No onboarding lift.</div>
+            </div>
+          </div>
+
+
+          <div class="card-section-title">Strength Profile</div>
+          <div class="strength-bars">
+            <div class="bar-item">
+              <div class="bar-label">B2B Outbound Cadence</div>
+              <div class="bar-track"><div class="bar-fill" style="width:90%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">SaaS / Software Sales Fluency</div>
+              <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Agency-Services Selling</div>
+              <div class="bar-track"><div class="bar-fill" style="width:80%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Written Cold Outreach</div>
+              <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">CRM &amp; Sales Ops</div>
+              <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Senior-Stakeholder Presence</div>
+              <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a class="video-intro-btn" href="https://drive.google.com/file/d/138J1r7xmLLEmcIZ31nnwDnxRwH3QEFIc/view" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Intro Video</a>
+            
+          </div>
+        </div>
+
+        
+        <div class="card-footer">
+          <div class="card-recruiter-note">
+            <div class="recruiter-note-title">Recruiter Note</div>
+            <p>Chad is the clearest SDR profile in this batch for what this search calls for. He's running B2B SaaS outbound at Kickfin today (40%+ meeting-to-close, 5-7 meetings/week) while having already closed for a US digital marketing agency (86% sales lift in three months) and sat on Airbnb's global launch team at a 56% BDR conversion rate. All three roles required Salesforce, Apollo, Clay, or LinkedIn Sales Nav — he's not going to need a stack tour. At $2,600 he's the priciest of the three, but he's also the only one whose resume would survive a cold read from a prospect. If the target is CMOs and VPs of Marketing at B2B SaaS or enterprise brands, he is the match.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="candidate-card">
+      <div class="card" id="candidate-2">
+        <div class="card-top">
+          <div class="card-identity">
+            <div class="card-avatar">C</div>
+            <div>
+              <div class="card-name">Crochell</div>
+              <div class="card-location">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Jamaica &middot; 
+              </div>
+              <div class="card-badges">
+                
+                
+              </div>
+            </div>
+          </div>
+          <div class="card-rate">
+            <div class="card-rate-amount">$2,000/mo</div>
+            <div class="card-rate-period">USD / Month</div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          
+          <div class="card-narrative">
+            Crochell's resume is a Customer Support Specialist career, not a hunter-SDR career. Seven years across finance, real estate, and crypto handling inbound support via Meevo, GoHighLevel, Freshdesk, Freshchat, and Zoom. Strong on written client communication and CRM hygiene. Honest read: if the SDR scope is pure cold outbound to CMOs, she's not the match. If the client has enough inbound demo requests or marketing-generated leads that need qualifying and nurturing, she's the right profile at $2,000.
+          </div>
+
+          <div class="card-section-title">Experience Highlights</div>
+          <div class="experience-list">
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Remote Client Coordinator</div>
+                <div class="exp-company">Sagan LLC (Finance) &middot; Aug 2023 – Apr 2025</div>
+                <div class="exp-highlight">Proactively reached out to inactive members to reactivate accounts and schedule appointments. Managed client status and details in Meevo CRM. Resolved support issues across membership details, reactivation, cancellations, and pausing memberships.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Remote Customer Relations Specialist</div>
+                <div class="exp-company">Call Geeks (Real Estate) &middot; Sep 2022 – Jul 2023</div>
+                <div class="exp-highlight">Provided client support for agent services, resolving and escalating technical and billing queries via phone, email, and SMS using Go High Level CRM.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Remote Customer Support Specialist</div>
+                <div class="exp-company">Upwork (Cryptocurrency) &middot; Mar 2020 – Aug 2022</div>
+                <div class="exp-highlight">Provided chat and email support for a crypto trading company. Handled customer onboarding, follow-ups, and technical support via Freshchat, Freshdesk, and Zoom. Stack: Freshchat Live Chat, Freshdesk, Santa Cruz, Dialpad, Ring Central, 8x8, Pipedrive, QuickBooks.</div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="card-section-title">Platforms &amp; Tools</div>
+          <div class="tags-cluster">
+            <span class="ctag ctag-key">GoHighLevel</span><span class="ctag ctag-key">Meevo</span><span class="ctag ctag-key">Freshdesk</span><span class="ctag ctag-key">Freshchat</span><span class="ctag ctag-key">Pipedrive</span>
+            <span class="ctag">Zoom</span><span class="ctag">Slack</span><span class="ctag">MS Teams</span><span class="ctag">QuickBooks</span>
+          </div>
+
+          <div class="card-section-title">Fit Indicators</div>
+          <div class="fit-grid">
+            <div class="fit-item">
+              <div class="fit-label">Inbound lead response → 7 years across 3 industries resolving client issues via CRM, email, and chat. Fast on first-touch reply.</div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-label">Multi-CRM fluency → GoHighLevel, Meevo, Freshdesk, Freshchat, Pipedrive, QuickBooks. Will drop into whatever stack is in place.</div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-label">Gap for pure SDR scope → No cold outbound experience on resume. This is a nurture / qualification fit, not a hunter fit.</div>
+            </div>
+          </div>
+
+
+          <div class="card-section-title">Strength Profile</div>
+          <div class="strength-bars">
+            <div class="bar-item">
+              <div class="bar-label">Inbound CRM Handling</div>
+              <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Written Client Communication</div>
+              <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Retention &amp; Reactivation</div>
+              <div class="bar-track"><div class="bar-fill" style="width:80%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Multi-Industry Adaptability</div>
+              <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Cold Outbound Hunting</div>
+              <div class="bar-track"><div class="bar-fill" style="width:40%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Senior B2B Sales Cycle</div>
+              <div class="bar-track"><div class="bar-fill" style="width:45%"></div></div>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a class="video-intro-btn" href="https://drive.google.com/file/d/1QrNEXN70Eoek4Ug5KQo6iJR6QDdmAzsN/view?usp=sharing" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Intro Video</a>
+            
+          </div>
+        </div>
+
+        
+        <div class="card-footer">
+          <div class="card-recruiter-note">
+            <div class="recruiter-note-title">Recruiter Note</div>
+            <p>Crochell is the honest mismatch in this batch. Her resume is explicit: 7 years of Customer Support Specialist roles, never an outbound SDR. If this search is strictly new-business cold outbound (cold email to CMOs, LinkedIn prospecting, no inbound), she is not the fit. If the client already has enough inbound volume from the site and the marketing funnel that a second hire is needed to qualify demo requests, respond to warm leads, and nurture marketing-generated pipeline, she's a clean hire at $2,000/mo. Worth one call to either redirect her to a customer success need or clarify what the SDR scope actually covers. She is a good operator — just pointed at a different job than what the title says.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="candidate-card">
+      <div class="card" id="candidate-3">
+        <div class="card-top">
+          <div class="card-identity">
+            <div class="card-avatar">C</div>
+            <div>
+              <div class="card-name">Chris</div>
+              <div class="card-location">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Philippines &middot; Entry-Mid Level
+              </div>
+              <div class="card-badges">
+                
+                
+              </div>
+            </div>
+          </div>
+          <div class="card-rate">
+            <div class="card-rate-amount">$1,800/mo</div>
+            <div class="card-rate-period">USD / Month</div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          
+          <div class="card-narrative">
+            Chris is the volume-outbound price-performance pick. Three appointment-setting and cold-calling roles back-to-back since 2021. Comfortable working a Salesforce / HubSpot / Apollo / Pipedrive stack on volume. Honest gap: his outbound has been mostly transactional B2C or low-complexity B2B (telecom, hospitality, sales floors). Selling a 6-figure agency engagement to a CMO is a step up in tone and cadence, and he'd need enablement to get there.
+          </div>
+
+          <div class="card-section-title">Experience Highlights</div>
+          <div class="experience-list">
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Concierge / Cold Calling / Sales</div>
+                <div class="exp-company">Villa Vie Residence (Hospitality) &middot; Aug 2024 – Feb 2025</div>
+                <div class="exp-highlight">Assisted guests and residents with concierge services. Conducted cold calls to generate interest in services and offerings. Direct sales and customer support.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+                <div class="exp-line"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Appointment Setter / Cold Calling / Lead Generation Specialist</div>
+                <div class="exp-company">Virtual Bridge PH (Telecommunications) &middot; Mar 2022 – Aug 2024</div>
+                <div class="exp-highlight">Conducted outbound calls to potential clients for appointment setting. Generated qualified leads to support sales team objectives. Maintained detailed records and follow-ups across CRM platforms.</div>
+              </div>
+            </div>
+            <div class="exp-item">
+              <div class="exp-dot-col">
+                <div class="exp-dot"></div>
+              </div>
+              <div class="exp-content">
+                <div class="exp-role">Inbound / Outbound Sales Representative</div>
+                <div class="exp-company">Pangea – Connecta (Sales) &middot; Mar 2021 – Mar 2022</div>
+                <div class="exp-highlight">Managed customer inquiries and sales calls. Promoted products and consistently closed sales in a high-volume setting.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-section-title">Platforms &amp; Tools</div>
+          <div class="tags-cluster">
+            <span class="ctag ctag-key">Salesforce</span><span class="ctag ctag-key">HubSpot</span><span class="ctag ctag-key">Apollo</span><span class="ctag ctag-key">Pipedrive</span><span class="ctag ctag-key">Asana</span>
+          </div>
+
+          <div class="card-section-title">Fit Indicators</div>
+          <div class="fit-grid">
+            <div class="fit-item">
+              <div class="fit-label">Consistent outbound motion → Three cold-calling / appointment-setting roles in a row. Comfortable running daily activity.</div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-label">Multi-CRM ready → Salesforce, HubSpot, Apollo, Pipedrive all on resume. No tool onboarding friction.</div>
+            </div>
+            <div class="fit-item">
+              <div class="fit-label">Gap to close → Prior outreach has been transactional / B2C. Selling agency services to CMOs is a step-change in tone; needs enablement on the ICP and message.</div>
+            </div>
+          </div>
+
+
+          <div class="card-section-title">Strength Profile</div>
+          <div class="strength-bars">
+            <div class="bar-item">
+              <div class="bar-label">Cold Calling Cadence</div>
+              <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Lead Qualification</div>
+              <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">CRM Discipline</div>
+              <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Self-Direction / Remote</div>
+              <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">Written Cold Outreach</div>
+              <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-label">B2B Enterprise Sales</div>
+              <div class="bar-track"><div class="bar-fill" style="width:55%"></div></div>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <a class="video-intro-btn" href="https://www.loom.com/share/453366b60ae848f19967c2c0901acfe5" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Intro Video</a>
+            
+          </div>
+        </div>
+
+        
+        <div class="card-footer">
+          <div class="card-recruiter-note">
+            <div class="recruiter-note-title">Recruiter Note</div>
+            <p>Chris is the $1,800/mo price-performance pick if this search wants to feed a scripted outbound motion with steady daily activity and minimal CRM onboarding. He's spent the last four years making calls, logging them, and moving through appointment-setting sequences across telecom, hospitality, and general sales. The honest caveat: none of his prior roles sold professional services to CMOs or VPs at enterprise brands. He'd need enablement on how to sound credible when reaching out to a brand leader about a website rebuild, versus a homeowner about a solar quote. If this search wants a volume-first hire with light management, he's the match. If this search wants someone who can land a conversation with a Series B CMO on the first email, Chad is the pick.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+  <div class="comparison-section">
+    <div class="section-label" style="padding-bottom:20px;">
+      <h2>Side-by-Side Comparison</h2>
+      <p>Key criteria at a glance to help you prioritize interviews.</p>
+    </div>
+    <div class="comparison-table-wrap">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Criteria</th>
+            <th>Luis</th><th>Chad</th><th>Crochell</th><th>Chris</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Location</strong></td><td>Mexico</td><td>South Africa</td><td>Jamaica</td><td>Philippines</td></tr>
+          <tr><td><strong>Experience</strong></td><td>8 yrs B2B BDR</td><td>4 yrs B2B sales + SaaS SDR</td><td>7 yrs Customer Support</td><td>4+ yrs Cold-calling / Appt-setting</td></tr>
+          <tr><td><strong>Key Employers</strong></td><td>Michelada.io, Onestar (HouseCallPro), Honeywell, Telvista</td><td>Kickfin (SaaS), Airbnb, LDC Digital Marketing, Liberty</td><td>Sagan LLC, Call Geeks, Upwork</td><td>Virtual Bridge PH, Villa Vie Residence, Pangea–Connecta</td></tr>
+          <tr><td><strong>Role Fit for SDR Search</strong></td><td>Pipeline builder / qualifier</td><td>Closest match — SaaS SDR + agency-services sales experience</td><td>Inbound / nurture only (not outbound)</td><td>Volume-first SDR; needs ICP enablement</td></tr>
+          <tr><td><strong>Tools / Stack</strong></td><td>HubSpot, Salesforce, LinkedIn Sales Navigator</td><td>Salesforce, Apollo, Clay, Mixmax, LinkedIn Sales Nav</td><td>GoHighLevel, Meevo, Freshdesk, Freshchat, Pipedrive</td><td>Salesforce, HubSpot, Apollo, Pipedrive, Asana</td></tr>
+          <tr><td><strong>Languages</strong></td><td>Spanish, English</td><td>English</td><td>English</td><td>English</td></tr>
+          <tr><td><strong>Education</strong></td><td>Negocios Internacionales (UABC)</td><td>RE5 Certification + Sales Masterclass (Moonstone)</td><td>BSc Business Admin, Finance (Northern Caribbean Univ.)</td><td>Certified Internet Professional Programmer</td></tr>
+          <tr><td><strong>Rate</strong></td><td>$2,200/mo</td><td>$2,600/mo</td><td>$2,000/mo</td><td class="highlight-cell">$1,800/mo</td></tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+
+  <div class="advisor-section">
+    <div class="section-label" style="padding-bottom:20px;">
+      <h2>Your Talent Advisor</h2>
+    </div>
+    <div class="advisor-card">
+      <img class="advisor-avatar" src="https://saganrecruitment.com/wp-content/uploads/2025/10/Jesus-Pacheco.jpeg" alt="Jesus Pacheco" />
+      <div class="advisor-info">
+        <div class="advisor-label">White Glove Talent Advisor</div>
+        <div class="advisor-name">Jesus Pacheco</div>
+        <div class="advisor-role">Sagan · Head of Revenue</div>
+        <p class="advisor-summary">Jesus, MIT MAS, leads revenue across Sagan's four hiring verticals, connecting top global talent with U.S. companies through a high-touch, human-centered approach. He ensures every match creates long-term impact and success. He is your direct point of contact for this search.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-logos">
+      <img src="https://framerusercontent.com/images/S1c1B9DfvYAUAWhvNHvghzfQBjQ.png" alt="Sagan Passport" style="height:24px;" onerror="this.style.display='none'" />
+      <span class="footer-x">&times;</span>
+      <img src="https://saganrecruitment.com/wp-content/uploads/2025/10/Sagan-Logo-2-e1759568299542.png" alt="Sagan" />
+    </div>
+    <p>Prepared by <a href="https://saganpassport.com" target="_blank">Sagan Passport</a> &middot; SDR Search &middot; April 22, 2026</p>
+  </footer>
+
+  <script>
+    function showBatch(n) {
+      document.querySelectorAll('.batch-panel').forEach(p => p.classList.add('hidden'));
+      document.querySelectorAll('.batch-btn').forEach(b => b.classList.remove('active'));
+      var panel = document.getElementById('batch-' + n);
+      var btn = document.querySelector('[data-batch="' + n + '"]');
+      if (panel) panel.classList.remove('hidden');
+      if (btn) btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
